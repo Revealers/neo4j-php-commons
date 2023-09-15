@@ -11,32 +11,16 @@
 
 namespace GraphAware\Common\Driver;
 
+use GraphAware\Common\Result\Result;
 use GraphAware\Common\Transaction\TransactionInterface;
 
 interface SessionInterface
 {
-    /**
-     * @param string      $statement
-     * @param array       $parameters
-     * @param null|string $tag
-     *
-     * @return \GraphAware\Common\Result\Result
-     */
-    public function run($statement, array $parameters = [], $tag = null);
+    public function run(string $statement, array $parameters = [], string $tag = null): Result;
 
     public function close();
 
-    /**
-     * @return TransactionInterface
-     */
-    public function transaction();
+    public function transaction(): TransactionInterface;
 
-    /**
-     * @param string|null $query
-     * @param array       $parameters
-     * @param string|null $tag
-     *
-     * @return PipelineInterface
-     */
-    public function createPipeline($query = null, array $parameters = array(), $tag = null);
+    public function createPipeline(string $query = null, array $parameters = array(), string $tag = null): PipelineInterface;
 }

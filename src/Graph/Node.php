@@ -11,32 +11,20 @@
 
 namespace GraphAware\Common\Graph;
 
+use InvalidArgumentException;
+
 /**
  * Node representation class.
  */
 class Node extends PropertyBag implements NodeInterface
 {
-    /**
-     * @var int
-     */
-    protected $id;
+    protected int $id;
 
-    /**
-     * @var Label[]
-     */
-    protected $labels = [];
+    protected array $labels = [];
 
-    /**
-     * @var RelationshipInterface[]
-     */
-    protected $relationships = [];
+    protected array $relationships = [];
 
-    /**
-     * @param int   $id
-     * @param array $labels
-     * @param array $relationships
-     */
-    public function __construct($id, array $labels = array(), array $relationships = array())
+    public function __construct(int $id, array $labels = array(), array $relationships = array())
     {
         $this->id = $id;
 
@@ -46,7 +34,7 @@ class Node extends PropertyBag implements NodeInterface
 
         foreach ($relationships as $relationship) {
             if (!$relationship instanceof RelationshipInterface) {
-                throw new \InvalidArgumentException(sprintf('Relationship must implement RelationshipInterface, "%s" given', json_encode($relationship)));
+                throw new InvalidArgumentException(sprintf('Relationship must implement RelationshipInterface, "%s" given', json_encode($relationship)));
             }
 
             $this->relationships[] = $relationship;
@@ -55,50 +43,32 @@ class Node extends PropertyBag implements NodeInterface
         parent::__construct();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getLabels()
+    public function getLabels(): array
     {
         return $this->labels;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function hasLabel($name)
+    public function hasLabel(string $name): bool
     {
         return in_array($name, $this->labels);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getRelationships()
+    public function getRelationships(): array
     {
         return $this->relationships;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function hasRelationships()
+    public function hasRelationships(): bool
     {
         return !empty($this->relationships);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function addRelationship(RelationshipInterface $relationship)
+    public function addRelationship(RelationshipInterface $relationship): void
     {
         $this->relationships[] = $relationship;
     }

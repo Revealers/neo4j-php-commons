@@ -13,49 +13,19 @@ namespace GraphAware\Common\Cypher;
 
 interface StatementInterface
 {
-    /**
-     * @return string
-     */
-    public function text();
+    public function text(): string;
 
-    /**
-     * @return array
-     */
-    public function parameters();
+    public function parameters(): array;
 
-    /**
-     * @return null|string
-     */
-    public function getTag();
+    public function getTag(): ?string;
 
-    /**
-     * @return bool
-     */
-    public function hasTag();
+    public function hasTag(): bool;
 
-    /**
-     * @return StatementType
-     */
-    public function statementType();
+    public function statementType(): StatementType;
 
-    /**
-     * @param string $text
-     *
-     * @return StatementInterface
-     */
-    public function withText($text);
+    public function withText(string $text): StatementInterface;
 
-    /**
-     * @param array $parameters
-     *
-     * @return StatementInterface
-     */
-    public function withParameters(array $parameters);
+    public function withParameters(array $parameters): StatementInterface;
 
-    /**
-     * @param array $parameters
-     *
-     * @return StatementInterface
-     */
-    public function withUpdatedParameters(array $parameters);
+    public function withUpdatedParameters(array $parameters): StatementInterface;
 }

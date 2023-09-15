@@ -15,25 +15,11 @@ use GraphAware\Common\Driver\DriverInterface;
 
 interface ConnectionInterface
 {
-    /**
-     * @param DriverInterface $driver
-     * @param null|string     $user
-     * @param null|string     $password
-     */
-    public function __construct(DriverInterface $driver, $user = null, $password = null);
+    public function __construct(DriverInterface $driver, string $user = null, string $password = null);
 
-    /**
-     * @return DriverInterface
-     */
-    public function getDriver();
+    public function getDriver(): DriverInterface;
 
-    /**
-     * @return null|string
-     */
-    public function getUser();
+    public function getUser(): ?string;
 
-    /**
-     * @return null|string
-     */
-    public function getPassword();
+    public function getPassword(): ?string;
 }

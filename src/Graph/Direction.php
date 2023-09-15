@@ -21,26 +21,17 @@ class Direction extends Enum
 
     const BOTH = 'BOTH';
 
-    /**
-     * @return Direction
-     */
-    public static function INCOMING()
+    public static function INCOMING(): Direction
     {
         return new self(self::INCOMING);
     }
 
-    /**
-     * @return Direction
-     */
-    public static function OUTGOING()
+    public static function OUTGOING(): Direction
     {
         return new self(self::OUTGOING);
     }
 
-    /**
-     * @return Direction
-     */
-    public static function BOTH()
+    public static function BOTH(): Direction
     {
         return new self(self::BOTH);
     }

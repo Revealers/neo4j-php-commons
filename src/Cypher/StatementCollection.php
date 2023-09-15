@@ -13,68 +13,41 @@ namespace GraphAware\Common\Cypher;
 
 class StatementCollection implements StatementCollectionInterface
 {
-    /**
-     * @var StatementInterface[]
-     */
-    protected $statements = [];
+    protected array $statements = [];
 
-    /**
-     * @var null|string
-     */
-    protected $tag;
+    protected ?string $tag;
 
-    /**
-     * @param null|string $tag
-     */
-    public function __construct($tag = null)
+    public function __construct(string $tag = null)
     {
-        $this->tag = null !== $tag ? (string) $tag : null;
+        $this->tag = null !== $tag ? $tag : null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getStatements()
+    public function getStatements(): array
     {
         return $this->statements;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function add(StatementInterface $statement)
+    public function add(StatementInterface $statement): void
     {
         $this->statements[] = $statement;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return empty($this->statements);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getCount()
+    public function getCount(): int
     {
         return count($this->statements);
     }
 
-    /**
-     * @return null|string
-     */
-    public function getTag()
+    public function getTag(): ?string
     {
         return $this->tag;
     }
 
-    /**
-     * @return bool
-     */
-    public function hasTag()
+    public function hasTag(): bool
     {
         return null !== $this->tag;
     }

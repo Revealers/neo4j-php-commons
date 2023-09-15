@@ -13,8 +13,5 @@ namespace GraphAware\Common\Driver;
 
 interface DriverInterface
 {
-    /**
-     * @return SessionInterface
-     */
-    public function session();
+    public function session(): SessionInterface;
 }

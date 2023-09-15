@@ -12,7 +12,14 @@
             "email": "christophe@graphaware.com"
         }
     ],
+    "config": {
+        "platform": {
+            "php": "8.2"
+        },
+        "sort-packages": true
+    },
     "require": {
+        "php": "^8.2",
         "myclabs/php-enum": "^1.4"
     },
     "require-dev": {

@@ -13,29 +13,19 @@ namespace GraphAware\Common\Collection;
 
 abstract class AbstractCollection implements CollectionInterface
 {
-    /** @var array  */
-    protected $elements = [];
+    protected array $elements = [];
 
-    /**
-     * @param array $elements
-     */
     public function __construct(array $elements)
     {
         $this->elements = $elements;
     }
 
-    /**
-     * @param array $elements
-     */
-    public function setElements(array $elements)
+    public function setElements(array $elements): void
     {
         $this->elements = $elements;
     }
 
-    /**
-     * @return array
-     */
-    public function getElements()
+    public function getElements(): array
     {
         return $this->elements;
     }

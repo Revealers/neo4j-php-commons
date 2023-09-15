@@ -11,139 +11,85 @@
 
 namespace GraphAware\Common\Cypher;
 
+use InvalidArgumentException;
+
 class Statement implements StatementInterface
 {
-    /**
-     * @var string
-     */
-    protected $text;
+    protected string $text;
 
-    /**
-     * @var array
-     */
-    protected $parameters;
+    protected array $parameters;
 
-    /**
-     * @var string|null
-     */
-    protected $tag = null;
+    protected ?string $tag = null;
 
-    /**
-     * @var StatementType
-     */
-    protected $type;
+    protected StatementType $type;
 
-    /**
-     * @param string      $text
-     * @param array       $parameters
-     * @param string|null $tag
-     * @param StatementType
-     */
-    private function __construct($text, array $parameters = array(), $tag = null, StatementType $statementType)
+
+    private function __construct(string $text, array $parameters, ?string $tag, StatementType $statementType)
     {
-        $this->text = (string) $text;
+        $this->text = $text;
         $this->parameters = $parameters;
         $this->type = $statementType;
 
         if (null !== $tag) {
-            $this->tag = (string) $tag;
+            $this->tag = $tag;
         }
     }
 
-    /**
-     * @param string      $text
-     * @param array       $parameters
-     * @param string|null $tag
-     * @param string      $statementType
-     *
-     * @return Statement
-     */
-    public static function create($text, array $parameters = array(), $tag = null, $statementType = StatementType::READ_WRITE)
+    public static function create(string $text, array $parameters = array(), string $tag = null, string $statementType = StatementType::READ_WRITE): Statement
     {
         if (!StatementType::isValid($statementType)) {
-            throw new \InvalidArgumentException(sprintf('Value %s is invalid as statement type, possible values are %s', $statementType, json_encode(StatementType::keys())));
+            throw new InvalidArgumentException(sprintf('Value %s is invalid as statement type, possible values are %s', $statementType, json_encode(StatementType::keys())));
         }
         $type = new StatementType($statementType);
 
         return new self($text, $parameters, $tag, $type);
     }
 
-    /**
-     * @param string      $text
-     * @param array       $parameters
-     * @param string|null $tag
-     *
-     * @return \GraphAware\Common\Cypher\Statement
-     */
-    public static function prepare($text, array $parameters = array(), $tag = null)
+    public static function prepare(string $text, array $parameters = array(), string $tag = null): Statement
     {
         $type = new StatementType(StatementType::READ_WRITE);
 
         return new self($text, $parameters, $tag, $type);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function text()
+    public function text(): string
     {
         return $this->text;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function parameters()
+    public function parameters(): array
     {
         return $this->parameters;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function withText($text)
+    public function withText(string $text): StatementInterface|Statement
     {
         return new self($text, $this->parameters, $this->tag, $this->type);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function withParameters(array $parameters)
+    public function withParameters(array $parameters): StatementInterface|Statement
     {
         return new self($this->text, $parameters, $this->tag, $this->type);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function withUpdatedParameters(array $parameters)
+    public function withUpdatedParameters(array $parameters): StatementInterface|Statement
     {
         $parameters = array_merge($this->parameters, $parameters);
 
         return new self($this->text, $parameters, $this->tag, $this->type);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getTag()
+    public function getTag(): ?string
     {
         return $this->tag;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function hasTag()
+    public function hasTag(): bool
     {
         return null !== $this->tag;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function statementType()
+    public function statementType(): StatementType
     {
         return $this->type;
     }

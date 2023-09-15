@@ -13,41 +13,24 @@ namespace GraphAware\Common\Graph;
 
 class Label
 {
-    /**
-     * @var string
-     */
-    protected $name;
+    protected string $name;
 
-    /**
-     * @param string $name
-     */
-    public function __construct($name)
+    public function __construct(string $name)
     {
-        $this->name = (string) $name;
+        $this->name = $name;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return Label
-     */
-    public static function label($name)
+    public static function label(string $name): Label
     {
         return new self($name);
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->name;
     }

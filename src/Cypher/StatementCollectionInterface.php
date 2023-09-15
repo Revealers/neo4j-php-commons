@@ -13,23 +13,11 @@ namespace GraphAware\Common\Cypher;
 
 interface StatementCollectionInterface
 {
-    /**
-     * @return StatementInterface[]
-     */
     public function getStatements();
 
-    /**
-     * @param StatementInterface $statement
-     */
     public function add(StatementInterface $statement);
 
-    /**
-     * @return bool
-     */
     public function isEmpty();
 
-    /**
-     * @return int
-     */
     public function getCount();
 }

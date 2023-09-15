@@ -2,47 +2,26 @@
 
 namespace GraphAware\Common\Connection;
 
-use GraphAware\Common\Driver\ConfigInterface;
-
 /**
  * A shared configuration class between connection. The configuration class is immutable.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class BaseConfiguration implements ConfigInterface
+class BaseConfiguration
 {
-    /**
-     * @var array
-     */
-    private $data;
+    private array $data;
 
-    /**
-     * Init the configuration with some data.
-     *
-     * @param array $data
-     */
     protected function __construct(array $data = [])
     {
         $this->data = $data;
     }
 
-    /**
-     * Factory function for the configuration.
-     *
-     * @return static
-     */
-    public static function create()
+    public static function create(): static
     {
         return new static();
     }
 
-    /**
-     * @param string $name
-     * @param mixed  $default value when $name is not defined
-     *
-     * @return mixed
-     */
-    public function getValue($name, $default = null)
+    public function getValue(string $name, mixed $default = null): mixed
     {
         if (!isset($this->data[$name])) {
             return $default;
@@ -51,28 +30,12 @@ class BaseConfiguration implements ConfigInterface
         return $this->data[$name];
     }
 
-    /**
-     * Does the data exist in the configuration?
-     *
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function hasValue($name)
+    public function hasValue(string $name): bool
     {
         return isset($this->data[$name]);
     }
 
-    /**
-     * Create a new Configuration with a new $value for key $name.
-     * Any existing value for $name will be replaced in the new Configuration instance.
-     *
-     * @param string $name
-     * @param mixed  $value
-     *
-     * @return static
-     */
-    public function setValue($name, $value)
+    public function setValue(string $name, mixed $value): BaseConfiguration|static
     {
         $new = clone $this;
         $new->data[$name] = $value;

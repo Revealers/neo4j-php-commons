@@ -13,40 +13,23 @@ namespace GraphAware\Common\Graph;
 
 class RelationshipType
 {
-    /**
-     * @var string
-     */
-    protected $name;
+    protected string $name;
 
-    /**
-     * @param string $name
-     */
-    private function __construct($name)
+    private function __construct(string $name)
     {
         $this->name = $name;
     }
 
-    /**
-     * @param string $name
-     * 
-     * @return RelationshipType
-     */
-    public static function withName($name)
+    public static function withName(string $name): RelationshipType
     {
-        return new self((string) $name);
+        return new self($name);
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function __toString()
     {
         return $this->name;

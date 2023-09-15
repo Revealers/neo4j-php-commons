@@ -2,17 +2,11 @@
 
 namespace GraphAware\Common\Driver;
 
+use GraphAware\Common\Result\ResultCollection;
+
 interface PipelineInterface
 {
-    /**
-     * @param string $query
-     * @param array  $parameters
-     * @param null   $tag
-     */
-    public function push($query, array $parameters = array(), $tag = null);
+    public function push(string $query, array $parameters = array(), $tag = null);
 
-    /**
-     * @return \GraphAware\Common\Result\ResultCollection
-     */
-    public function run();
+    public function run(): ResultCollection;
 }

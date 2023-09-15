@@ -11,35 +11,19 @@
 
 namespace GraphAware\Common\Graph;
 
+use InvalidArgumentException;
+
 class Relationship extends PropertyBag implements RelationshipInterface
 {
-    /**
-     * @var int
-     */
-    protected $id;
+    protected int $id;
 
-    /**
-     * @var RelationshipType
-     */
-    protected $type;
+    protected RelationshipType $type;
 
-    /**
-     * @var NodeInterface
-     */
-    protected $startNode;
+    protected NodeInterface $startNode;
 
-    /**
-     * @var NodeInterface
-     */
-    protected $endNode;
+    protected NodeInterface $endNode;
 
-    /**
-     * @param int              $id
-     * @param RelationshipType $relationshipType
-     * @param NodeInterface    $startNode
-     * @param NodeInterface    $endNode
-     */
-    public function __construct($id, RelationshipType $relationshipType, NodeInterface $startNode, NodeInterface $endNode)
+    public function __construct(int $id, RelationshipType $relationshipType, NodeInterface $startNode, NodeInterface $endNode)
     {
         $this->id = $id;
         $this->type = $relationshipType;
@@ -49,42 +33,27 @@ class Relationship extends PropertyBag implements RelationshipInterface
         parent::__construct();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getType()
+    public function getType(): RelationshipType
     {
         return $this->type;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getStartNode()
+    public function getStartNode(): NodeInterface
     {
         return $this->startNode;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getEndNode()
+    public function getEndNode(): NodeInterface
     {
         return $this->endNode;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getOtherNode(NodeInterface $node)
+    public function getOtherNode(NodeInterface $node): NodeInterface
     {
         if ($node->getId() === $this->startNode->getId()) {
             return $this->endNode;
@@ -92,39 +61,28 @@ class Relationship extends PropertyBag implements RelationshipInterface
             return $this->startNode;
         }
 
-        throw new \InvalidArgumentException(sprintf(
+        throw new InvalidArgumentException(sprintf(
             'The node with ID "%s" is not part of the relationship with ID "%s"',
             $node->getId(),
             $this->id
         ));
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getDirection(NodeInterface $node)
+    public function getDirection(NodeInterface $node): Direction
     {
         if ($node !== $this->startNode && $node !== $this->endNode) {
-            throw new \InvalidArgumentException(sprintf('The given node is not part of the Relationship'));
+            throw new InvalidArgumentException('The given node is not part of the Relationship');
         }
 
-        $direction = $node === $this->startNode ? Direction::OUTGOING() : Direction::INCOMING();
-
-        return $direction;
+        return $node === $this->startNode ? Direction::OUTGOING() : Direction::INCOMING();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getNodes()
+    public function getNodes(): array
     {
         return array($this->startNode, $this->endNode);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function isType(RelationshipType $relationshipType)
+    public function isType(RelationshipType $relationshipType): bool
     {
         return $relationshipType->getName() === $this->type->getName();
     }

@@ -13,47 +13,15 @@ namespace GraphAware\Common\Graph;
 
 interface NodeInterface extends PropertyBagInterface
 {
-    /**
-     * Returns the node labels.
-     *
-     * @return Label[]
-     */
-    public function getLabels();
+    public function getLabels(): array;
 
-    /**
-     * Returns whether or not the node has the given <code>$name</code> label.
-     *
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function hasLabel($name);
+    public function hasLabel(string $name): bool;
 
-    /**
-     * Returns the node internal id.
-     *
-     * @return int
-     */
-    public function getId();
+    public function getId(): int;
 
-    /**
-     * Returns the node relationships.
-     *
-     * @return RelationshipInterface[]
-     */
-    public function getRelationships();
+    public function getRelationships(): array;
 
-    /**
-     * Returns whether or not the node has relationships.
-     *
-     * @return bool
-     */
-    public function hasRelationships();
+    public function hasRelationships(): bool;
 
-    /**
-     * Add a relationship to the Node.
-     * 
-     * @param RelationshipInterface $relationship
-     */
     public function addRelationship(RelationshipInterface $relationship);
 }

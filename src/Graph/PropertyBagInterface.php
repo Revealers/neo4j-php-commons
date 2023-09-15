@@ -11,40 +11,19 @@
 
 namespace GraphAware\Common\Graph;
 
+use InvalidArgumentException;
+
 interface PropertyBagInterface
 {
     /**
      * Returns a property value for the given <code>$key</code>. Throws an exception if not found.
-     *
-     * @param string $key
-     *
-     * @return mixed
-     *
-     * @throws \InvalidArgumentException when the object has no property with the given <code>$key</code>
+     * @throws InvalidArgumentException when the object has no property with the given <code>$key</code>
      */
-    public function getProperty($key);
+    public function getProperty(string $key): mixed;
 
-    /**
-     * Returns whether or not a property exist with the given <code>$key</code>.
-     *
-     * @param string $key
-     *
-     * @return bool
-     */
-    public function hasProperty($key);
+    public function hasProperty(string $key): bool;
 
-    /**
-     * Returns all properties of this bag.
-     *
-     * @return array
-     */
-    public function getProperties();
+    public function getProperties(): array;
 
-    /**
-     * Sets a property value for the given <code>$key</code>.
-     *
-     * @param string $key
-     * @param mixed  $value
-     */
-    public function setProperty($key, $value);
+    public function setProperty(string $key, mixed $value);
 }
